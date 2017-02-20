@@ -20,7 +20,7 @@ var consul = {
             },
             deregister: function (serviceId) {
                 _.remove(serviceList, function (id) {
-                    id == serviceId.id;
+                    id === serviceId.id;
                 });
             }
         }

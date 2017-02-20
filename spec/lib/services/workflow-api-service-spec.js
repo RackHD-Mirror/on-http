@@ -30,7 +30,7 @@ describe('Http.Services.Api.Workflows', function () {
         env = helper.injector.get('Services.Environment');
         Promise = helper.injector.get('Promise');
         TaskGraph = helper.injector.get('TaskGraph.TaskGraph');
-        taskGraphService = helper.injector.get('Http.Services.Api.Taskgraph.Scheduler')
+        taskGraphService = helper.injector.get('Http.Services.Api.Taskgraph.Scheduler');
     });
 
     beforeEach(function() {
@@ -105,7 +105,7 @@ describe('Http.Services.Api.Workflows', function () {
                     domain: 'test'
                 }
             );
-        })
+        });
     });
 
     it('should create and run a graph against a node', function () {
@@ -158,7 +158,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.findActiveGraphForTarget('testnodeid')
             .then(function() {
                 expect(taskGraphService.workflowsGet).to.have.been.calledOnce;
-            })
+            });
     });
 
     it('should persist a graph definition', function () {
@@ -181,7 +181,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.getWorkflowsTasksByName(taskDefinition)
         .then(function() {
             expect(taskGraphService.workflowsGetTasksByName).to.have.been.calledOnce;
-            expect(taskGraphService.workflowsGetTasksByName).to.have.been.calledWith(taskDefinition);
+            expect(taskGraphService.workflowsGetTasksByName).to.have.been.calledWith(taskDefinition);  //jshint ignore:line
         });
     });
 
@@ -191,7 +191,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.destroyGraphDefinition(taskDefinition)
         .then(function() {
             expect(taskGraphService.workflowsDeleteGraphsByName).to.have.been.calledOnce;
-            expect(taskGraphService.workflowsDeleteGraphsByName).to.have.been.calledWith(taskDefinition);
+            expect(taskGraphService.workflowsDeleteGraphsByName).to.have.been.calledWith(taskDefinition); //jshint ignore:line
         });
     });
 
@@ -210,7 +210,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.cancelTaskGraph('test')
             .then(function() {
                 expect(taskGraphService.workflowsAction).to.have.been.calledOnce;
-            })
+            });
     });
 
 

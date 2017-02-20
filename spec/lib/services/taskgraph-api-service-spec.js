@@ -16,7 +16,7 @@ describe("Http.Services.Taskgraph", function () {
         helper.setupInjector([
             helper.require('/lib/services/taskgraph-api-service'),
         ]);
-        mockConsul = Consul();
+        mockConsul = new Consul();
         configuration = helper.injector.get('Services.Configuration');
         configuration.set('consulUrl', 'consul://localhost:8500');
         tgApi = helper.injector.get('Http.Services.Api.Taskgraph.Scheduler');
@@ -118,7 +118,7 @@ describe("Http.Services.Taskgraph", function () {
                 }
             };
             tgApi.populate('tasks', tasksCollection);
-            return tgApi.getTasksById('1234').should.eventually.deep.equal(taskCollection[0]['1234']);
+            return tgApi.getTasksById('1234').should.eventually.deep.equal(taskCollection[0]['1234']); // jshint ignore:line
         });
         */
 

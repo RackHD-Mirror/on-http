@@ -6,10 +6,9 @@ var response;
 
 var functions = {
     getTasksById: function(client, callback) {
-        if (client.identifier == undefined) {
+        if (client.identifier === undefined) {
             return callback('invalid task id', undefined);
         } else {
-            //return callback(undefined, {response: '[{"node":"581a41cd30c24078070f9deb","_status":"succeeded"}]'});
             return callback(undefined, {response: response});
         }
     },

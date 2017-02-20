@@ -18,7 +18,7 @@ describe('2.0 Http.Api.Nodes', function () {
 
     before('start HTTP server', function () {
         this.timeout(10000);
-        mockConsul = Consul();
+        mockConsul = new Consul();
         return helper.startServer([
         ]).then(function () {
             configuration = helper.injector.get('Services.Configuration');
