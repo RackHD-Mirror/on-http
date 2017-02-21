@@ -1,4 +1,4 @@
-// Copyright 2016, EMC, Inc.
+// Copyright © 2016-2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
 
 'use strict';
 
@@ -51,10 +51,7 @@ describe('Http.Services.Api.Workflows', function () {
         waterline.taskdefinitions = {
             destroy: sinon.stub().resolves({ injectableName: 'test' })
         };
-        graph = {
-            instanceId: 'testgraphid',
-            definition: {friendlyName: 'testGraph'}
-        };
+        graph = { instanceId: 'testgraphid' };
         task = { instanceId: 'testtaskid' };
         workflow = { id: 'testid', _status: 'cancelled' };
         graphDefinition = { injectableName: 'Graph.Test' };
@@ -88,6 +85,20 @@ describe('Http.Services.Api.Workflows', function () {
 
     it('should create and run a graph not against a node', function () {
         taskGraphService.workflowsPost.resolves(graphDefinition);
+
+        graph = {
+            instanceId: 'testgraphid',
+            name: 'testGraph',
+            node: null,
+            tasks: {
+                task1: {
+                    state: 'pending',
+                },
+                task2: {
+                    state: 'pending',
+                }
+            }
+        };
 
         return workflowApiService.createAndRunGraph({
             name: 'Graph.Test',
