@@ -1,4 +1,4 @@
-// Copyright 2016, EMC, Inc.
+// Copyright © 2016-2017 Dell Inc. or its subsidiaries.  All Rights Reserved.
 
 'use strict';
 
@@ -30,7 +30,7 @@ describe('Http.Services.Api.Workflows', function () {
         env = helper.injector.get('Services.Environment');
         Promise = helper.injector.get('Promise');
         TaskGraph = helper.injector.get('TaskGraph.TaskGraph');
-        taskGraphService = helper.injector.get('Http.Services.Api.Taskgraph.Scheduler')
+        taskGraphService = helper.injector.get('Http.Services.Api.Taskgraph.Scheduler');
     });
 
     beforeEach(function() {
@@ -51,10 +51,7 @@ describe('Http.Services.Api.Workflows', function () {
         waterline.taskdefinitions = {
             destroy: sinon.stub().resolves({ injectableName: 'test' })
         };
-        graph = {
-            instanceId: 'testgraphid',
-            definition: {friendlyName: 'testGraph'}
-        };
+        graph = { instanceId: 'testgraphid' };
         task = { instanceId: 'testtaskid' };
         workflow = { id: 'testid', _status: 'cancelled' };
         graphDefinition = { injectableName: 'Graph.Test' };
@@ -89,6 +86,20 @@ describe('Http.Services.Api.Workflows', function () {
     it('should create and run a graph not against a node', function () {
         taskGraphService.workflowsPost.resolves(graphDefinition);
 
+        graph = {
+            instanceId: 'testgraphid',
+            name: 'testGraph',
+            node: null,
+            tasks: {
+                task1: {
+                    state: 'pending',
+                },
+                task2: {
+                    state: 'pending',
+                }
+            }
+        };
+
         return workflowApiService.createAndRunGraph({
             name: 'Graph.Test',
             options: { test: 1 },
@@ -105,7 +116,7 @@ describe('Http.Services.Api.Workflows', function () {
                     domain: 'test'
                 }
             );
-        })
+        });
     });
 
     it('should create and run a graph against a node', function () {
@@ -158,7 +169,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.findActiveGraphForTarget('testnodeid')
             .then(function() {
                 expect(taskGraphService.workflowsGet).to.have.been.calledOnce;
-            })
+            });
     });
 
     it('should persist a graph definition', function () {
@@ -181,7 +192,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.getWorkflowsTasksByName(taskDefinition)
         .then(function() {
             expect(taskGraphService.workflowsGetTasksByName).to.have.been.calledOnce;
-            expect(taskGraphService.workflowsGetTasksByName).to.have.been.calledWith(taskDefinition);
+            expect(taskGraphService.workflowsGetTasksByName).to.have.been.calledWith(taskDefinition);  //jshint ignore:line
         });
     });
 
@@ -191,7 +202,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.destroyGraphDefinition(taskDefinition)
         .then(function() {
             expect(taskGraphService.workflowsDeleteGraphsByName).to.have.been.calledOnce;
-            expect(taskGraphService.workflowsDeleteGraphsByName).to.have.been.calledWith(taskDefinition);
+            expect(taskGraphService.workflowsDeleteGraphsByName).to.have.been.calledWith(taskDefinition); //jshint ignore:line
         });
     });
 
@@ -210,7 +221,7 @@ describe('Http.Services.Api.Workflows', function () {
         return workflowApiService.cancelTaskGraph('test')
             .then(function() {
                 expect(taskGraphService.workflowsAction).to.have.been.calledOnce;
-            })
+            });
     });
 
 
