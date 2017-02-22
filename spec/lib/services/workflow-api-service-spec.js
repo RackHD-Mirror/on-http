@@ -31,6 +31,7 @@ describe('Http.Services.Api.Workflows', function () {
         Promise = helper.injector.get('Promise');
         TaskGraph = helper.injector.get('TaskGraph.TaskGraph');
         taskGraphService = helper.injector.get('Http.Services.Api.Taskgraph.Scheduler');
+
     });
 
     beforeEach(function() {
@@ -92,10 +93,10 @@ describe('Http.Services.Api.Workflows', function () {
             node: null,
             tasks: {
                 task1: {
-                    state: 'pending',
+                    state: 'pending'
                 },
                 task2: {
-                    state: 'pending',
+                    state: 'pending'
                 }
             }
         };
